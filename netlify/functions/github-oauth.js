@@ -1,7 +1,6 @@
 // netlify/functions/github-oauth.js
 const https = require('https');
 
-// 创建一个通用的 HTTP 请求函数
 function makeRequest(options, postData = null) {
   return new Promise((resolve, reject) => {
     const req = https.request(options, (res) => {
@@ -72,6 +71,14 @@ exports.handler = async function(event, context) {
 
     console.log('处理 GitHub OAuth 回调，授权码:', code);
 
+    // 检查环境变量
+    if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
+      throw new Error('GitHub OAuth 环境变量未设置');
+    }
+
+    console.log('Client ID:', process.env.GITHUB_CLIENT_ID ? '已设置' : '未设置');
+    console.log('Client Secret:', process.env.GITHUB_CLIENT_SECRET ? '已设置' : '未设置');
+
     // 获取访问令牌
     const tokenData = {
       client_id: process.env.GITHUB_CLIENT_ID,
@@ -92,6 +99,8 @@ exports.handler = async function(event, context) {
       },
       JSON.stringify(tokenData)
     );
+
+    console.log('GitHub 令牌响应状态:', tokenResponse.status);
 
     if (!tokenResponse.ok) {
       throw new Error(`GitHub 令牌请求失败: ${tokenResponse.status}`);
