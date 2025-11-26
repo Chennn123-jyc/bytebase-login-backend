@@ -1,0 +1,15 @@
+{
+  "name": "bytebase-login-backend",
+  "version": "1.0.0",
+  "description": "Backend for Bytebase login with GitHub OAuth",
+  "main": "netlify/functions/github-oauth.js",
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
