@@ -1,7 +1,7 @@
-// netlify/functions/github-oauth.js
-import fetch from 'node-fetch';
 
-export const handler = async function(event, context) {
+const fetch = require('node-fetch');
+
+exports.handler = async function(event, context) {
   // 处理 CORS 预检请求
   if (event.httpMethod === 'OPTIONS') {
     return {
